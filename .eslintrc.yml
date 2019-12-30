@@ -1,0 +1,38 @@
+root: true
+env:
+  browser: true
+  node: true
+  jest: true
+parserOptions:
+  parser: babel-eslint
+settings:
+  import/resolver:
+    babel-module:
+      root: "."
+      alias:
+        "~": "."
+        "@": "."
+        "~~": "."
+        "@@": "."
+extends:
+  - '@nuxtjs'
+  - airbnb-base
+  - 'prettier'
+  - 'prettier/vue'
+  - 'plugin:prettier/recommended'
+  - 'plugin:nuxt/recommended'
+plugins:
+  - 'prettier'
+  - jest
+rules:
+  no-console: off
+  no-constant-condition:
+    - error
+    - checkLoops: false
+  no-param-reassign:
+    - error
+    - props: false
+  prettier/prettier:
+    - error
+    - singleQuote: true
+      semi: true
