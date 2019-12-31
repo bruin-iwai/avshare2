@@ -48,10 +48,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  // eslint-disable-next-line prettier/prettier
-  modules: [
-    '@nuxtjs/auth',
-  ],
+  modules: [],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
