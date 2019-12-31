@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@nuxtjs/auth": "^4.8.5",
-    "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/dotenv": "^1.4.0",
+    "axios": "^0.19.0",
     "nuxt": "^2.0.0"
   },
   "devDependencies": {
