@@ -1,6 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import colors from 'vuetify/es5/util/colors';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config();
+
 export default {
   mode: 'spa',
   /*
@@ -39,13 +42,14 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
+    // Doc: https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
   ],
   /*
    ** Nuxt.js modules
    */
+  // eslint-disable-next-line prettier/prettier
   modules: [
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
     '@nuxtjs/auth',
   ],
   /*
@@ -78,5 +82,9 @@ export default {
      */
     // eslint-disable-next-line no-unused-vars
     extend(config, ctx) {},
+  },
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    apiKey: process.env.API_KEY,
   },
 };
