@@ -2,11 +2,7 @@
 import axios from '~/plugins/axios';
 
 export const state = () => ({
-  // eslint-disable-next-line prettier/prettier
-  possiblePrefixes: [
-    'my-favorites',
-    'old-programs',
-  ],
+  possiblePrefixes: ['my-favorites', 'old-programs'],
   prefix: '',
   urls: {},
 });
