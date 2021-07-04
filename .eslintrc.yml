@@ -2,24 +2,14 @@ root: true
 env:
   browser: true
   node: true
-  jest: true
 parserOptions:
-  parser: babel-eslint
-settings:
-  import/resolver:
-    babel-module:
-      root: "."
-      alias:
-        "~": "."
-        "@": "."
-        "~~": "."
-        "@@": "."
+  parser: '@babel/eslint-parser'
+  requireConfigFile: false
 extends:
   - '@nuxtjs'
   - 'plugin:nuxt/recommended'
   - airbnb-base
   - 'prettier'
-  - 'prettier/vue'
 plugins:
   - jest
 rules:

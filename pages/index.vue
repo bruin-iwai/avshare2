@@ -2,18 +2,16 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
       <v-card>
-        <v-card-title class="headline">
-          My favorite videos
-        </v-card-title>
+        <v-card-title class="headline"> My favorite videos </v-card-title>
         <v-card-text>
           <v-list>
             <v-subheader>
               <v-select
                 :items="$store.state.possiblePrefixes"
-                @change="changePrefix"
                 label="prefix"
                 outlined
                 dense
+                @change="changePrefix"
               />
             </v-subheader>
             <v-list-item v-for="(item, i) in urls" :key="i">
