@@ -10,6 +10,8 @@ extends:
   - 'plugin:nuxt/recommended'
   - airbnb-base
   - 'prettier'
+plugins:
+  - jest
 rules:
   no-console: off
   no-constant-condition:
