@@ -1,10 +1,10 @@
-export default function ({ $config, $axios }, inject) {
-  const api = $axios.create({
+export default function api({ $config, $axios }, inject) {
+  const inst = $axios.create({
     headers: {
       common: {
         'x-api-key': $config.apiKey,
       },
     },
   });
-  inject('api', api);
+  inject('api', inst);
 }

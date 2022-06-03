@@ -2,16 +2,14 @@ root: true
 env:
   browser: true
   node: true
+parser: vue-eslint-parser
 parserOptions:
-  parser: '@babel/eslint-parser'
-  requireConfigFile: false
+  ecmaVersion: 2018
 extends:
   - '@nuxtjs'
   - 'plugin:nuxt/recommended'
   - airbnb-base
   - 'prettier'
-plugins:
-  - jest
 rules:
   no-console: off
   no-constant-condition:
