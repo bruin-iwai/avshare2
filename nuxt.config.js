@@ -22,13 +22,22 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://kit.fontawesome.com/3815aa6129.js',
+        crossorigin: 'anonymous',
+      },
+    ],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/api'],
+  plugins: [
+    { src: '@/plugins/vue-blockui', mode: 'client' },
+    { src: '@/plugins/api', mode: 'client' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

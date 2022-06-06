@@ -27,15 +27,21 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
+
 export default {
   computed: {
-    urls() {
-      return this.$store.state.urls[this.$store.state.prefix];
-    },
+    ...mapGetters(['urls']),
   },
   methods: {
-    changePrefix(newPrefix) {
-      this.$store.dispatch('fetchUrls', newPrefix);
+    ...mapMutations(['setLoading', 'resetLoading']),
+    async changePrefix(newPrefix) {
+      this.setLoading();
+      try {
+        await this.$store.dispatch('fetchUrls', newPrefix);
+      } finally {
+        this.resetLoading();
+      }
     },
   },
 };
