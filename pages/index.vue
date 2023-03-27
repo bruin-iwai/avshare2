@@ -7,7 +7,7 @@
           <v-list>
             <v-subheader>
               <v-select
-                :items="$store.state.possiblePrefixes"
+                :items="possiblePrefixes"
                 label="prefix"
                 outlined
                 dense
@@ -26,17 +26,37 @@
   </v-layout>
 </template>
 
-<script>
-export default {
-  computed: {
-    urls() {
-      return this.$store.state.urls[this.$store.state.prefix];
+<script setup lang="ts">
+interface UrlAndTitle {
+  url: string;
+  title: string;
+}
+
+interface UrlAndTitleMap {
+  [key: string]: UrlAndTitle[];
+}
+
+// states
+const possiblePrefixes = ref(['my-favorites', 'old-programs']);
+const prefix = ref('');
+const urlAndTitleMap = ref<UrlAndTitleMap>({});
+
+// getters
+const urls = computed<UrlAndTitle[]>(() => urlAndTitleMap.value[prefix.value]);
+
+// actions
+const changePrefix = async (newPrefix: string): Promise<void> => {
+  const config = useRuntimeConfig();
+  const { baseURL } = config.app;
+  const { apiKey } = config.public;
+  const result = await $fetch<UrlAndTitle[]>(`/dev/contents/${newPrefix}`, {
+    baseURL,
+    headers: {
+      'x-api-key': apiKey,
     },
-  },
-  methods: {
-    changePrefix(newPrefix) {
-      this.$store.dispatch('fetchUrls', newPrefix);
-    },
-  },
+  });
+
+  prefix.value = newPrefix;
+  urlAndTitleMap.value[newPrefix] = result;
 };
 </script>

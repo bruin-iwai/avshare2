@@ -2,7 +2,7 @@
   <v-app dark>
     <v-content>
       <v-container>
-        <nuxt />
+        <slot />
       </v-container>
     </v-content>
   </v-app>
