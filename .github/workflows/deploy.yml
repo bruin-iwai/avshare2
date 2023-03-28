@@ -35,4 +35,4 @@ jobs:
         role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
         aws-region: ap-northeast-1
     - name: s3 sync
-      run: aws s3 sync ./dist ${{ secrets.TARGET_S3_URL }}
+      run: aws s3 sync ./.output/public ${{ secrets.TARGET_S3_URL }}
