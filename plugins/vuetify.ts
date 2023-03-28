@@ -5,7 +5,7 @@ import { mainTheme, MAIN_DARK_THEME, mainDarkTheme } from '@/helpers/themes';
 
 export default defineNuxtPlugin((nuxtApp) => {
   const vuetify = createVuetify({
-    ssr: true,
+    ssr: false,
     components,
     directives,
     theme: {
