@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16]
+        node-version: [18]
 
     steps:
     - uses: actions/checkout@v3
@@ -27,12 +27,12 @@ jobs:
     - run: npm ci
     - run: npm run generate
       env:
-        BASE_URL: ${{ secrets.BASE_URL }}
-        API_KEY: ${{ secrets.API_KEY }}
+        NUXT_PUBLIC_BASE_URL: ${{ secrets.BASE_URL }}
+        NUXT_PUBLIC_API_KEY: ${{ secrets.API_KEY }}
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
         aws-region: ap-northeast-1
     - name: s3 sync
-      run: aws s3 sync ./dist ${{ secrets.TARGET_S3_URL }}
+      run: aws s3 sync ./.output/public ${{ secrets.TARGET_S3_URL }}
