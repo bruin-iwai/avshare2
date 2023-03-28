@@ -27,7 +27,7 @@ jobs:
     - run: npm ci
     - run: npm run generate
       env:
-        NUXT_APP_BASE_URL: ${{ secrets.BASE_URL }}
+        NUXT_PUBLIC_BASE_URL: ${{ secrets.BASE_URL }}
         NUXT_PUBLIC_API_KEY: ${{ secrets.API_KEY }}
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1

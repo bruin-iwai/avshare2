@@ -7,11 +7,11 @@
           <v-list>
             <v-subheader>
               <v-select
+                v-model="vmPrefix"
                 :items="possiblePrefixes"
                 label="prefix"
                 outlined
                 dense
-                @change="changePrefix"
               />
             </v-subheader>
             <v-list-item v-for="(item, i) in urls" :key="i">
@@ -37,18 +37,32 @@ interface UrlAndTitleMap {
 }
 
 // states
-const possiblePrefixes = ref(['my-favorites', 'old-programs']);
+const possiblePrefixes = ref(['', 'my-favorites', 'old-programs']);
 const prefix = ref('');
 const urlAndTitleMap = ref<UrlAndTitleMap>({});
 
 // getters
 const urls = computed<UrlAndTitle[]>(() => urlAndTitleMap.value[prefix.value]);
+const vmPrefix = computed<string>({
+  get() {
+    return prefix.value;
+  },
+  set(newValue) {
+    if (newValue === prefix.value) {
+      return;
+    }
+    prefix.value = newValue;
+
+    if (newValue !== '') {
+      changePrefix(newValue);
+    }
+  },
+});
 
 // actions
 const changePrefix = async (newPrefix: string): Promise<void> => {
   const config = useRuntimeConfig();
-  const { baseURL } = config.app;
-  const { apiKey } = config.public;
+  const { baseURL, apiKey } = config.public;
   const result = await $fetch<UrlAndTitle[]>(`/dev/contents/${newPrefix}`, {
     baseURL,
     headers: {

@@ -1,44 +1,23 @@
-import vuetify from 'vite-plugin-vuetify';
+// cf) https://codybontecou.com/how-to-use-vuetify-with-nuxt-3.html
+//     https://zenn.dev/coedo/articles/nuxt3-vuetify3
 
 export default defineNuxtConfig({
-  app: {
-    head: {
-      meta: [
-        { charset: 'utf-8' },
-        {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1',
-        },
-      ],
-      link: [{ rel: 'icon', href: '/favicon.ico' }],
-    },
-  },
-
   build: {
     transpile: ['vuetify'],
   },
 
-  css: ['@/assets/main.scss'],
-
-  hooks: {
-    'vite:extendConfig': (config) => {
-      config.plugins!.push(vuetify());
-      config.build!.rollupOptions!.external = ['vue-router'];
-    },
-  },
+  css: ['vuetify/lib/styles/main.sass'],
 
   modules: ['@nuxtjs/eslint-module'],
 
   runtimeConfig: {
-    app: {
-      baseURL: 'http://localhost:3000', // automatically set at runtime using process.env.NUXT_APP_BASE_URL
-    },
     public: {
+      baseURL: 'http://localhost:3000', // automatically set at runtime using process.env.NUXT_PUBLIC_BASE_URL
       apiKey: '', // automatically set at runtime using process.env.NUXT_PUBLIC_API_KEY
     },
   },
 
-  ssr: false,
+  ssr: true,
 
   vite: {
     ssr: {
