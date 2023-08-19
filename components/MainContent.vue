@@ -1,26 +1,31 @@
 <template>
-  <v-container fluid>
-    <v-row no-gutters>
-      <v-col align-self="center">
-        <v-select v-model="prefix" :items="['', 'my-favorites', 'old-programs']" label="prefix" />
-      </v-col>
-    </v-row>
-    <v-row no-gutters>
-      <v-col align-self="center">
-        <v-card v-if="prefix">
-          <v-card-text>
-            <v-list>
-              <v-list-item v-for="(item, i) in urls" :key="i">
-                <v-list-item-title>
-                  <a :href="item.url" target="_blank">{{ item.title }}</a>
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+  <div>
+    <LoadingIndicator :show="showLoading">
+      <v-progress-circular :size="70" :width="7" color="darkgray" indeterminate />
+    </LoadingIndicator>
+    <v-container fluid>
+      <v-row no-gutters>
+        <v-col align-self="center">
+          <v-select v-model="prefix" :items="['', 'my-favorites', 'old-programs']" label="prefix" />
+        </v-col>
+      </v-row>
+      <v-row no-gutters>
+        <v-col align-self="center">
+          <v-card v-if="prefix">
+            <v-card-text>
+              <v-list>
+                <v-list-item v-for="(item, i) in urls" :key="i">
+                  <v-list-item-title>
+                    <a :href="item.url" target="_blank">{{ item.title }}</a>
+                  </v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -38,6 +43,7 @@ const {
 // states
 const prefix = ref('');
 const urls = ref<UrlAndTitle[]>([]);
+const showLoading = ref(false);
 
 // watch effects
 watchEffect(async () => {
@@ -46,12 +52,17 @@ watchEffect(async () => {
     return;
   }
 
-  const result = await $fetch<UrlAndTitle[]>(`/dev/contents/${prefix.value}`, {
-    baseURL,
-    headers: {
-      'x-api-key': apiKey,
-    },
-  });
-  urls.value = result;
+  showLoading.value = true;
+  try {
+    const result = await $fetch<UrlAndTitle[]>(`/dev/contents/${prefix.value}`, {
+      baseURL,
+      headers: {
+        'x-api-key': apiKey,
+      },
+    });
+    urls.value = result;
+  } finally {
+    showLoading.value = false;
+  }
 });
 </script>
