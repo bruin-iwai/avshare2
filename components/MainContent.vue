@@ -1,26 +1,15 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
-      <v-card>
-        <v-card-title class="headline"> My favorite videos </v-card-title>
-        <v-card-text>
-          <v-list>
-            <v-subheader>
-              <v-select
-                v-model="vmPrefix"
-                :items="possiblePrefixes"
-                label="prefix"
-                outlined
-                dense
-              />
-            </v-subheader>
-            <v-list-item v-for="(item, i) in urls" :key="i">
-              <v-list-item-content>
-                <a :href="item.url" target="_blank">{{ item.title }}</a>
-              </v-list-item-content>
-            </v-list-item>
+      <v-card title="My favorite videos">
+        <template #text>
+          <v-select v-model="vmPrefix" :items="possiblePrefixes" label="prefix" outlined dense />
+          <v-list :items="urls" item-title="title" item-value="url">
+            <template #item="{ props }">
+              <a :href="props.value" target="_blank">{{ props.title }}</a>
+            </template>
           </v-list>
-        </v-card-text>
+        </template>
       </v-card>
     </v-flex>
   </v-layout>
